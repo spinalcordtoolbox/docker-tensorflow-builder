@@ -23,8 +23,15 @@ gcc --version
 conda config --add channels conda-forge
 conda create --yes -n tensorflow python==$PYTHON_VERSION
 source activate tensorflow
-conda install --yes numpy wheel bazel==$BAZEL_VERSION
-pip install keras-applications keras-preprocessing
+conda install --yes bazel==$BAZEL_VERSION
+
+# https://github.com/tensorflow/tensorflow/issues/41061#issuecomment-662222308
+pip install 'numpy<1.19.0'
+pip install -U pip six wheel mock
+pip install future
+pip install keras_applications==1.0.8 --no-deps
+pip install keras_preprocessing==1.1.2 --no-deps
+pip install pandas
 
 # Compile TensorFlow
 
@@ -72,7 +79,7 @@ export TF_NEED_ROCM=0
 export GCC_HOST_COMPILER_PATH=$(which gcc)
 
 # Here you can edit this variable to set any optimizations you want.
-export CC_OPT_FLAGS="-march=native"
+export CC_OPT_FLAGS="-march=${GCC_CPU_ARCH}"
 
 if [ "$USE_GPU" -eq "1" ]; then
   # Cuda parameters
@@ -103,6 +110,8 @@ if [ "$USE_GPU" -eq "1" ]; then
               --host_linkopt="-lrt" \
               --host_linkopt="-lm" \
               --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
+              --local_ram_resources=8196 \
+              --jobs=4 \
               //tensorflow/tools/pip_package:build_pip_package
 
   PACKAGE_NAME=tensorflow-gpu
@@ -116,6 +125,8 @@ else
               --host_linkopt="-lrt" \
               --host_linkopt="-lm" \
               --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
+              --local_ram_resources=8196 \
+              --jobs=4 \
               //tensorflow/tools/pip_package:build_pip_package
 
   PACKAGE_NAME=tensorflow
