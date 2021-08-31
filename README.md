@@ -25,7 +25,7 @@ git clone https://github.com/hadim/docker-tensorflow-builder.git
 
 ```bash
 LINUX_DISTRO="ubuntu-16.04"
-# or LINUX_DISTRO="ubuntu-18.10"
+# or LINUX_DISTRO="ubuntu-18.04"
 # or LINUX_DISTRO="centos-7.4"
 # or LINUX_DISTRO="centos-6.6"
 cd "tensorflow/$LINUX_DISTRO"
@@ -53,7 +53,7 @@ docker-compose run tf
 
 ```bash
 LINUX_DISTRO="ubuntu-16.04"
-# or LINUX_DISTRO="ubuntu-18.10"
+# or LINUX_DISTRO="ubuntu-18.04"
 # or LINUX_DISTRO="centos-7.4"
 # or LINUX_DISTRO="centos-6.6"
 cd "tensorflow/$LINUX_DISTRO"
