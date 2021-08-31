@@ -23,8 +23,15 @@ gcc --version
 conda config --add channels conda-forge
 conda create --yes -n tensorflow python==$PYTHON_VERSION
 source activate tensorflow
-conda install --yes numpy wheel bazel==$BAZEL_VERSION
-pip install keras-applications keras-preprocessing
+conda install --yes bazel==$BAZEL_VERSION
+
+# https://github.com/tensorflow/tensorflow/issues/41061#issuecomment-662222308
+pip install 'numpy<1.19.0'
+pip install -U pip six wheel mock
+pip install future
+pip install keras_applications==1.0.8 --no-deps
+pip install keras_preprocessing==1.1.2 --no-deps
+pip install pandas
 
 # Compile TensorFlow
 
