@@ -110,6 +110,8 @@ if [ "$USE_GPU" -eq "1" ]; then
               --host_linkopt="-lrt" \
               --host_linkopt="-lm" \
               --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
+              --local_ram_resources=8196 \
+              --jobs=4 \
               //tensorflow/tools/pip_package:build_pip_package
 
   PACKAGE_NAME=tensorflow-gpu
@@ -123,6 +125,8 @@ else
               --host_linkopt="-lrt" \
               --host_linkopt="-lm" \
               --action_env="LD_LIBRARY_PATH=${LD_LIBRARY_PATH}" \
+              --local_ram_resources=8196 \
+              --jobs=4 \
               //tensorflow/tools/pip_package:build_pip_package
 
   PACKAGE_NAME=tensorflow
