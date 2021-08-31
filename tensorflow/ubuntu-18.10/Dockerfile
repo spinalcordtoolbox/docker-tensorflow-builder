@@ -1,6 +1,6 @@
 FROM ubuntu:18.10
 
-RUN apt update && apt install -y \
+RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     git \
